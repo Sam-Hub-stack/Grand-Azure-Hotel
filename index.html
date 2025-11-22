@@ -5,6 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Grand Azure Hotel | Luxury Glassmorphism UI</title>
     
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%2355c6d3'/><stop offset='100%' stop-color='%231a202c'/></linearGradient></defs><rect width='100' height='100' fill='url(%23grad)' rx='20'/><path d='M30 35 L50 20 L70 35 L65 65 L35 65 Z' fill='white' opacity='0.9'/><path d='M40 40 L50 30 L60 40 L58 55 L42 55 Z' fill='white' opacity='0.7'/></svg>">
+    
+    <!-- Alternative favicon formats -->
+    <link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%2355c6d3'/><stop offset='100%' stop-color='%231a202c'/></linearGradient></defs><rect width='180' height='180' fill='url(%23grad)' rx='36'/><path d='M54 63 L90 36 L126 63 L117 117 L63 117 Z' fill='white' opacity='0.9'/><path d='M72 72 L90 54 L108 72 L104 99 L76 99 Z' fill='white' opacity='0.7'/></svg>">
+    <link rel="icon" type="image/png" sizes="32x32" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%2355c6d3'/><stop offset='100%' stop-color='%231a202c'/></linearGradient></defs><rect width='32' height='32' fill='url(%23grad)' rx='6'/><path d='M10 11 L16 6 L22 11 L21 21 L11 21 Z' fill='white' opacity='0.9'/><path d='M13 13 L16 10 L19 13 L18 17 L14 17 Z' fill='white' opacity='0.7'/></svg>">
+    <link rel="icon" type="image/png" sizes="16x16" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%2355c6d3'/><stop offset='100%' stop-color='%231a202c'/></linearGradient></defs><rect width='16' height='16' fill='url(%23grad)' rx='3'/><path d='M5 6 L8 3 L11 6 L10 10 L6 10 Z' fill='white' opacity='0.9'/><path d='M6 7 L8 5 L10 7 L10 9 L6 9 Z' fill='white' opacity='0.7'/></svg>">
+    
+    <!-- Theme color -->
+    <meta name="theme-color" content="#55c6d3">
+    <meta name="msapplication-TileColor" content="#55c6d3">
+    
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Load Lucide Icons for high-quality, modern icons -->
@@ -51,8 +63,7 @@
 
         /* Hero Background Animation & Overlay */
         #hero {
-            /* Lively Hotel Image (Ocean facing) */
-            background: url('https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80') center/cover no-repeat;
+            background: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80') center/cover no-repeat;
             position: relative;
             overflow: hidden;
             display: flex;
@@ -90,7 +101,6 @@
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
 
         /* Scroll-in animation for sections */
         .scroll-animate {
@@ -230,7 +240,7 @@
 
         /* Testimonial Card */
         .testimonial-card {
-            background: rgba(255, 255, 255, 0.08); /* Lighter glass for testimonials */
+            background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(12px) saturate(170%);
             -webkit-backdrop-filter: blur(12px) saturate(170%);
             border: 1px solid rgba(255, 255, 255, 0.15);
@@ -247,15 +257,14 @@
             -webkit-appearance: none;
             -moz-appearance: none;
             appearance: none;
-            /* Using Lucide icon SVG for dropdown/select arrow */
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='lucide lucide-chevron-down'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
             background-position: right 0.75rem center;
             background-size: 1.5rem 1.5rem;
-            padding-right: 2.5rem; /* Make space for the icon */
+            padding-right: 2.5rem;
         }
         input[type="date"]::-webkit-calendar-picker-indicator {
-            opacity: 0; /* Hide default date picker icon */
+            opacity: 0;
             position: absolute;
             width: 100%;
             height: 100%;
@@ -267,12 +276,11 @@
             -webkit-appearance: none;
             -moz-appearance: none;
             appearance: none;
-            /* Using Lucide icon SVG for language dropdown */
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='lucide lucide-chevron-down'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
             background-position: right 0.75rem center;
             background-size: 1.5rem 1.5rem;
-            padding-right: 2.5rem; /* Make space for the icon */
+            padding-right: 2.5rem;
         }
     </style>
 </head>
@@ -306,7 +314,7 @@
         </nav>
     </header>
 
-    <!-- Mobile Menu Overlay (Off-canvas) -->
+    <!-- Mobile Menu Overlay -->
     <div id="mobile-menu" class="fixed inset-0 z-50 bg-gray-900/95 hidden transition-opacity duration-300 md:hidden" role="dialog" aria-modal="true" aria-labelledby="mobile-menu-title">
         <div class="flex justify-end p-4">
             <button id="close-menu-btn" class="text-white p-2 rounded-full hover:bg-white/10 transition" aria-label="Close mobile menu">
@@ -332,7 +340,6 @@
         </div>
     </div>
 
-
     <!-- Hero Section -->
     <section id="hero" class="relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col lg:flex-row items-center lg:justify-between py-24">
@@ -353,7 +360,7 @@
                 </div>
             </div>
 
-            <!-- Booking Widget (Glassmorphism Effect) -->
+            <!-- Booking Widget -->
             <div id="booking-form" class="lg:w-5/12 w-full glass-container p-6 md:p-10 rounded-3xl shadow-2xl transition duration-500 hover:shadow-cyan-500/30 hero-content" style="animation-delay: 0.7s;">
                 <h3 class="text-3xl font-bold text-white mb-6 text-center">Plan Your Stay</h3>
                 <form id="booking-widget" class="space-y-4" aria-label="Room Booking Form">
@@ -394,12 +401,11 @@
     </section>
 
     <main class="max-w-7xl mx-auto">
-        <!-- About Us Section (Professionalism Feature) -->
+        <!-- About Us Section -->
         <section id="about" class="py-20 px-4 sm:px-6 lg:px-8 scroll-animate">
             <div class="lg:flex lg:items-center lg:space-x-12">
                 <div class="lg:w-1/2 mb-10 lg:mb-0">
-                    <!-- Lively, professional image of the lobby/service -->
-                    <img src="https://images.unsplash.com/photo-1549294413-26f195200c3d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80" onerror="this.onerror=null;this.src='https://placehold.co/1600x1000/1e293b/ffffff?text=Professional+Lobby+View';" alt="Luxurious hotel lobby" class="rounded-3xl shadow-2xl transform hover:scale-[1.01] transition duration-500">
+                    <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80" alt="Luxurious hotel lobby with elegant seating and modern architecture" class="rounded-3xl shadow-2xl transform hover:scale-[1.01] transition duration-500">
                 </div>
                 <div class="lg:w-1/2">
                     <h2 class="text-4xl font-extrabold mb-4">A Sanctuary of Serenity</h2>
@@ -424,7 +430,7 @@
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
                 <!-- Room Card 1: Ocean View Suite -->
                 <div class="glass-container p-6 rounded-3xl overflow-hidden hover:scale-[1.02] transition duration-500 cursor-pointer" onclick="openRoomModal('ocean-view')" tabindex="0" role="button" aria-label="View details for Ocean View Suite">
-                    <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" onerror="this.onerror=null;this.src='https://placehold.co/600x400/0e7490/ffffff?text=Ocean+View+Suite';" alt="Ocean View Suite" class="w-full h-48 object-cover rounded-2xl mb-4 shadow-lg transform hover:scale-105 transition duration-500">
+                    <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Ocean View Suite with panoramic windows and modern decor" class="w-full h-48 object-cover rounded-2xl mb-4 shadow-lg transform hover:scale-105 transition duration-500">
                     <h3 class="text-2xl font-bold mb-2 flex items-center"><i data-lucide="waves" class="w-6 h-6 mr-2 text-primary-color"></i> Ocean View Suite</h3>
                     <p class="text-gray-300 text-sm mb-4">Floor-to-ceiling windows, private balcony, and smart lighting system.</p>
                     <div class="flex justify-between items-center text-lg font-semibold">
@@ -435,7 +441,7 @@
 
                 <!-- Room Card 2: Executive Penthouse -->
                 <div class="glass-container p-6 rounded-3xl overflow-hidden hover:scale-[1.02] transition duration-500 cursor-pointer" onclick="openRoomModal('executive-penthouse')" tabindex="0" role="button" aria-label="View details for Executive Penthouse">
-                    <img src="https://images.unsplash.com/photo-1590447171489-0824b42325c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" onerror="this.onerror=null;this.src='https://placehold.co/600x400/4c1d95/ffffff?text=Executive+Penthouse';" alt="Executive Penthouse" class="w-full h-48 object-cover rounded-2xl mb-4 shadow-lg transform hover:scale-105 transition duration-500">
+                    <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Executive Penthouse with luxury furnishings and city views" class="w-full h-48 object-cover rounded-2xl mb-4 shadow-lg transform hover:scale-105 transition duration-500">
                     <h3 class="text-2xl font-bold mb-2 flex items-center"><i data-lucide="crown" class="w-6 h-6 mr-2 text-primary-color"></i> Executive Penthouse</h3>
                     <p class="text-gray-300 text-sm mb-4">Two bedrooms, private butler service, and an infinity plunge pool.</p>
                     <div class="flex justify-between items-center text-lg font-semibold">
@@ -446,7 +452,7 @@
 
                 <!-- Room Card 3: Garden Terrace Room -->
                 <div class="glass-container p-6 rounded-3xl overflow-hidden hover:scale-[1.02] transition duration-500 cursor-pointer" onclick="openRoomModal('garden-terrace')" tabindex="0" role="button" aria-label="View details for Garden Terrace Room">
-                    <img src="https://images.unsplash.com/photo-1544367988-75704a50059c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" onerror="this.onerror=null;this.src='https://placehold.co/600x400/059669/ffffff?text=Garden+Terrace+Room';" alt="Garden Terrace Room" class="w-full h-48 object-cover rounded-2xl mb-4 shadow-lg transform hover:scale-105 transition duration-500">
+                    <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Garden Terrace Room with outdoor access and natural lighting" class="w-full h-48 object-cover rounded-2xl mb-4 shadow-lg transform hover:scale-105 transition duration-500">
                     <h3 class="text-2xl font-bold mb-2 flex items-center"><i data-lucide="sun" class="w-6 h-6 mr-2 text-primary-color"></i> Garden Terrace Room</h3>
                     <p class="text-gray-300 text-sm mb-4">Ground floor access, private lush garden, and an outdoor shower.</p>
                     <div class="flex justify-between items-center text-lg font-semibold">
@@ -464,7 +470,6 @@
                     <i data-lucide="x" class="w-6 h-6"></i>
                 </button>
                 <div id="room-modal-content" class="space-y-6">
-                    <!-- Dynamic content will be loaded here by JavaScript -->
                     <h3 id="room-modal-title" class="text-4xl font-extrabold text-primary-color mb-4"></h3>
                     <img id="room-modal-image" src="" alt="Room Detail View" class="w-full h-64 object-cover rounded-2xl shadow-xl mb-4">
                     <p id="room-modal-description" class="text-gray-300 leading-relaxed"></p>
@@ -522,19 +527,19 @@
             <h2 class="text-4xl font-extrabold text-center mb-12">Photo Gallery</h2>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div class="gallery-item cursor-pointer" onclick="openGalleryModal(0)" tabindex="0" role="button" aria-label="View hotel dining photo">
-                    <img src="https://images.unsplash.com/photo-1579705703940-27c585c5c994?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80" onerror="this.onerror=null;this.src='https://placehold.co/400x300/16a34a/ffffff?text=Dining';" data-title="The Azure Dining Room" class="w-full h-full object-cover rounded-xl shadow-lg transition duration-500" alt="Hotel Interior">
+                    <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80" data-title="The Azure Dining Room" class="w-full h-full object-cover rounded-xl shadow-lg transition duration-500" alt="Elegant hotel restaurant with fine dining setup">
                     <span class="gallery-caption">Dining Room</span>
                 </div>
                 <div class="gallery-item cursor-pointer" onclick="openGalleryModal(1)" tabindex="0" role="button" aria-label="View hotel exterior photo">
-                    <img src="https://images.unsplash.com/photo-1540541338287-c1d1a60395c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80" onerror="this.onerror=null;this.src='https://placehold.co/400x300/3b82f6/ffffff?text=Exterior';" data-title="Coastal Exterior" class="w-full h-full object-cover rounded-xl shadow-lg transition duration-500" alt="Hotel Exterior">
+                    <img src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80" data-title="Coastal Exterior" class="w-full h-full object-cover rounded-xl shadow-lg transition duration-500" alt="Modern hotel building with ocean view">
                     <span class="gallery-caption">Exterior View</span>
                 </div>
                 <div class="gallery-item cursor-pointer" onclick="openGalleryModal(2)" tabindex="0" role="button" aria-label="View hotel spa photo">
-                    <img src="https://images.unsplash.com/photo-1616394584738-6be89e31974e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80" onerror="this.onerror=null;this.src='https://placehold.co/400x300/f97316/ffffff?text=Spa';" data-title="Serenity Spa" class="w-full h-full object-cover rounded-xl shadow-lg transition duration-500" alt="Hotel Restaurant">
+                    <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80" data-title="Serenity Spa" class="w-full h-full object-cover rounded-xl shadow-lg transition duration-500" alt="Luxury spa with treatment rooms">
                     <span class="gallery-caption">Wellness Spa</span>
                 </div>
                 <div class="gallery-item cursor-pointer" onclick="openGalleryModal(3)" tabindex="0" role="button" aria-label="View hotel pool photo">
-                    <img src="https://images.unsplash.com/photo-1595152772835-219677b25595?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80" onerror="this.onerror=null;this.src='https://placehold.co/400x300/8b5cf6/ffffff?text=Pool';" data-title="Infinity Pool" class="w-full h-full object-cover rounded-xl shadow-lg transition duration-500" alt="Hotel View">
+                    <img src="https://images.unsplash.com/photo-1575429198097-0414ec08e8cd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80" data-title="Infinity Pool" class="w-full h-full object-cover rounded-xl shadow-lg transition duration-500" alt="Infinity pool overlooking the ocean">
                     <span class="gallery-caption">Infinity Pool</span>
                 </div>
             </div>
@@ -559,7 +564,7 @@
             </div>
         </div>
 
-        <!-- Testimonials Section (Professionalism Feature) -->
+        <!-- Testimonials Section -->
         <section id="testimonials" class="py-20 px-4 sm:px-6 lg:px-8 scroll-animate">
             <h2 class="text-4xl font-extrabold text-center mb-4">Guest Testimonials</h2>
             <p class="text-xl text-center text-gray-400 mb-12 max-w-3xl mx-auto">Hear what our distinguished guests have to say about their experience.</p>
@@ -645,7 +650,6 @@
         </div>
     </div>
 
-
     <!-- Footer -->
     <footer id="contact" class="dark-glass py-12 mt-12 border-t border-white/10 scroll-animate">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-5 gap-8 text-sm">
@@ -656,7 +660,7 @@
                 <p class="text-gray-400 mb-4">123 Ocean Blvd, Paradise City, 90210</p>
                 <div class="flex space-x-3">
                     <a href="https://www.instagram.com/?hl=en" class="text-gray-400 hover:text-primary-color transition" aria-label="Instagram"><i data-lucide="instagram" class="w-5 h-5"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-primary-color transition" aria-label="Whatsapp"><i class="fa-brands fa-whatsapp"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-primary-color transition" aria-label="Whatsapp"><i data-lucide="message-circle" class="w-5 h-5"></i></a>
                     <a href="#" class="text-gray-400 hover:text-primary-color transition" aria-label="Twitter"><i data-lucide="twitter" class="w-5 h-5"></i></a>
                 </div>
             </div>
@@ -672,7 +676,7 @@
                 </ul>
             </div>
 
-            <!-- Professionalism: Corporate -->
+            <!-- Corporate -->
             <div>
                 <h4 class="font-semibold text-white mb-4">Corporate</h4>
                 <ul class="space-y-2">
@@ -718,50 +722,55 @@
             'ocean-view': {
                 title: 'Ocean View Suite',
                 price: '$450 / night',
-                image: 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
-                description: 'Our most popular suite offers breathtaking panoramic views of the ocean. The minimalist design emphasizes natural light and the serene coastal setting.',
+                image: 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                description: 'Our most popular suite offers breathtaking panoramic views of the ocean. The minimalist design emphasizes natural light and the serene coastal setting. Features floor-to-ceiling windows that open to a private balcony overlooking the azure waters.',
                 features: [
                     { icon: 'maximize-2', text: '550 sq ft' },
                     { icon: 'bed', text: 'King Size Bed' },
                     { icon: 'bathtub', text: 'Soaking Tub & Rain Shower' },
-                    { icon: 'projector', text: 'Smart Lighting' }
+                    { icon: 'projector', text: 'Smart Lighting System' },
+                    { icon: 'wifi', text: 'High-Speed WiFi' },
+                    { icon: 'coffee', text: 'Nespresso Machine' }
                 ]
             },
             'executive-penthouse': {
                 title: 'Executive Penthouse',
                 price: '$1200 / night',
-                image: 'https://images.unsplash.com/photo-1590447171489-0824b42325c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
-                description: 'The epitome of luxury. This exclusive two-story penthouse features two bedrooms, a private terrace, and dedicated butler service.',
+                image: 'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                description: 'The epitome of luxury. This exclusive two-story penthouse features two bedrooms, a private terrace with infinity plunge pool, and dedicated butler service. Perfect for executives and special occasions.',
                 features: [
                     { icon: 'maximize-2', text: '2,500 sq ft' },
-                    { icon: 'crown', text: 'Private Butler' },
+                    { icon: 'crown', text: 'Private Butler Service' },
                     { icon: 'pool', text: 'Infinity Plunge Pool' },
-                    { icon: 'bar-chart-2', text: 'Executive Office Space' }
+                    { icon: 'bar-chart-2', text: 'Executive Office Space' },
+                    { icon: 'wine', text: 'Private Wine Cellar' },
+                    { icon: 'car', text: 'Chauffeur Service' }
                 ]
             },
             'garden-terrace': {
                 title: 'Garden Terrace Room',
                 price: '$300 / night',
-                image: 'https://images.unsplash.com/photo-1544367988-75704a50059c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
-                description: 'Perfect for nature lovers, this ground-floor room offers direct access to a lush private garden and features a soothing outdoor rain shower.',
+                image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                description: 'Perfect for nature lovers, this ground-floor room offers direct access to a lush private garden and features a soothing outdoor rain shower. Wake up to the sound of birds and enjoy your morning coffee in your personal garden oasis.',
                 features: [
                     { icon: 'maximize-2', text: '400 sq ft' },
                     { icon: 'leaf', text: 'Private Garden Access' },
                     { icon: 'shower-head', text: 'Outdoor Rain Shower' },
-                    { icon: 'coffee', text: 'Daily Breakfast Included' }
+                    { icon: 'coffee', text: 'Daily Breakfast Included' },
+                    { icon: 'sun', text: 'Private Sun Deck' },
+                    { icon: 'tree-pine', text: 'Garden Seating Area' }
                 ]
             }
         };
 
         // --- GALLERY DATA ---
         const GALLERY_IMAGES = [
-            { src: 'https://images.unsplash.com/photo-1579705703940-27c585c5c994?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80', title: 'The Azure Dining Room' },
-            { src: 'https://images.unsplash.com/photo-1540541338287-c1d1a60395c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80', title: 'Coastal Exterior' },
-            { src: 'https://images.unsplash.com/photo-1616394584738-6be89e31974e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80', title: 'Serenity Spa' },
-            { src: 'https://images.unsplash.com/photo-1595152772835-219677b25595?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80', title: 'Infinity Pool' }
+            { src: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80', title: 'The Azure Dining Room' },
+            { src: 'https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80', title: 'Coastal Exterior' },
+            { src: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80', title: 'Serenity Spa' },
+            { src: 'https://images.unsplash.com/photo-1575429198097-0414ec08e8cd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80', title: 'Infinity Pool' }
         ];
         let currentGalleryIndex = 0;
-
 
         // --- UTILITY FUNCTIONS FOR MODALS ---
 
@@ -770,7 +779,7 @@
             if (modal) {
                 modal.classList.add('open');
                 modal.setAttribute('aria-hidden', 'false');
-                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+                document.body.style.overflow = 'hidden';
             }
         }
 
@@ -802,7 +811,6 @@
                 </div>
             `).join('');
 
-            // Re-create icons for dynamic content
             lucide.createIcons();
             showModal('room-modal');
         }
@@ -886,16 +894,13 @@
                 return;
             }
             
-            // Clear inputs for professionalism
             document.getElementById('check-in').value = '';
             document.getElementById('check-out').value = '';
 
-            // Show confirmation modal instead of simple message
             const dates = `${checkIn} to ${checkOut}`;
             const guests = `${adults} Adults, ${children} Children`;
             openConfirmationModal(dates, guests);
 
-            // Temporarily show message in widget (will be covered by modal instantly)
             messageEl.textContent = `Processing request for ${adults} guests...`;
             messageEl.classList.remove('hidden', 'text-red-400');
             messageEl.classList.add('text-green-300');
@@ -910,7 +915,7 @@
 
             messageEl.textContent = `Thank you for subscribing, ${emailInput.value}! We promise to only send luxury updates.`;
             messageEl.classList.remove('hidden');
-            emailInput.value = ''; // Clear input
+            emailInput.value = '';
             
             setTimeout(() => messageEl.classList.add('hidden'), 4000);
         }
@@ -936,7 +941,7 @@
             observer.observe(el);
         });
 
-        // 5. Sticky Header Visibility Toggle on Scroll
+        // Sticky Header Visibility Toggle on Scroll
         const header = document.querySelector('header');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 100) {
@@ -961,66 +966,65 @@
             }
         });
 
-    // Backend API integration
-const API_BASE = 'http://localhost:3000/api'; // Change to your backend URL
+        // Backend API integration
+        const API_BASE = 'http://localhost:5000/api';
 
-// Update booking form handler
-document.getElementById('booking-widget').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    const formData = {
-        checkIn: document.getElementById('check-in').value,
-        checkOut: document.getElementById('check-out').value,
-        adults: document.getElementById('adults').value,
-        children: document.getElementById('children').value,
-        roomType: 'ocean-view' // You can make this dynamic based on user selection
-    };
+        // Update booking form handler
+        document.getElementById('booking-widget').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = {
+                checkIn: document.getElementById('check-in').value,
+                checkOut: document.getElementById('check-out').value,
+                adults: document.getElementById('adults').value,
+                children: document.getElementById('children').value,
+                roomType: 'ocean-view'
+            };
 
-    try {
-        const response = await fetch(`${API_BASE}/bookings`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData)
+            try {
+                const response = await fetch(`${API_BASE}/bookings`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const result = await response.json();
+                
+                const messageEl = document.getElementById('booking-message');
+                if (result.success) {
+                    messageEl.textContent = result.message;
+                    messageEl.className = 'mt-4 text-center text-sm font-semibold text-green-300';
+                    messageEl.classList.remove('hidden');
+                    
+                    document.getElementById('booking-widget').reset();
+                } else {
+                    messageEl.textContent = result.error || 'Booking failed. Please try again.';
+                    messageEl.className = 'mt-4 text-center text-sm font-semibold text-red-300';
+                    messageEl.classList.remove('hidden');
+                }
+            } catch (error) {
+                console.error('Booking error:', error);
+                const messageEl = document.getElementById('booking-message');
+                messageEl.textContent = 'Network error. Please try again.';
+                messageEl.className = 'mt-4 text-center text-sm font-semibold text-red-300';
+                messageEl.classList.remove('hidden');
+            }
         });
 
-        const result = await response.json();
-        
-        const messageEl = document.getElementById('booking-message');
-        if (result.success) {
-            messageEl.textContent = result.message;
-            messageEl.className = 'mt-4 text-center text-sm font-semibold text-green-300';
-            messageEl.classList.remove('hidden');
-            
-            // Reset form
-            document.getElementById('booking-widget').reset();
-        } else {
-            messageEl.textContent = result.error || 'Booking failed. Please try again.';
-            messageEl.className = 'mt-4 text-center text-sm font-semibold text-red-300';
-            messageEl.classList.remove('hidden');
+        // Function to check room availability
+        async function checkRoomAvailability(roomType, checkIn, checkOut) {
+            try {
+                const response = await fetch(
+                    `${API_BASE}/availability?roomType=${roomType}&checkIn=${checkIn}&checkOut=${checkOut}`
+                );
+                return await response.json();
+            } catch (error) {
+                console.error('Availability check error:', error);
+                return { available: false };
+            }
         }
-    } catch (error) {
-        console.error('Booking error:', error);
-        const messageEl = document.getElementById('booking-message');
-        messageEl.textContent = 'Network error. Please try again.';
-        messageEl.className = 'mt-4 text-center text-sm font-semibold text-red-300';
-        messageEl.classList.remove('hidden');
-    }
-});
-
-// Function to check room availability
-async function checkRoomAvailability(roomType, checkIn, checkOut) {
-    try {
-        const response = await fetch(
-            `${API_BASE}/availability?roomType=${roomType}&checkIn=${checkIn}&checkOut=${checkOut}`
-        );
-        return await response.json();
-    } catch (error) {
-        console.error('Availability check error:', error);
-        return { available: false };
-    }
-}
 
     </script>
 </body>
