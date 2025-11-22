@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Grand Azure Hotel | Luxury Glassmorphism UI</title>
+    
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Lucide Icons for high-quality, modern icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* General Setup */
+        :root {
+            --primary-color: #55c6d3; /* A soft cyan/blue */
+            --secondary-color: #1a202c; /* Tailwind gray-900 */
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --dark-glass-bg: rgba(0, 0, 0, 0.15);
+            --dark-glass-border: rgba(255, 255, 255, 0.1);
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        /* Utility for focusing on visible elements for accessibility */
+        :focus-visible {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+            border-radius: 4px; 
+        }
+
+        /* Custom Glassmorphism Styles */
+        .glass-container {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px) saturate(180%);
+            -webkit-backdrop-filter: blur(15px) saturate(180%);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .dark-glass {
+            background: var(--dark-glass-bg);
+            backdrop-filter: blur(20px) saturate(150%);
+            -webkit-backdrop-filter: blur(20px) saturate(150%);
+            border: 1px solid var(--dark-glass-border);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            color: white;
+        }
+
+        /* Hero Background Animation & Overlay */
+        #hero {
+            /* Lively Hotel Image (Ocean facing) */
+            background: url('https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80') center/cover no-repeat;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        #hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(85, 198, 211, 0.4) 0%, rgba(26, 32, 44, 0.6) 100%);
+            animation: pulse-overlay 10s infinite alternate ease-in-out;
+            z-index: 1;
+        }
+
+        @keyframes pulse-overlay {
+            0% { opacity: 0.8; }
+            100% { opacity: 0.95; }
+        }
+
+        /* Initial Hero Content Animation */
+        .hero-content {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInSlideUp 1.2s ease-out forwards;
+            animation-delay: 0.5s;
+        }
+
+        @keyframes fadeInSlideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+
+        /* Scroll-in animation for sections */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .scroll-animate.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Button primary styles */
+        .btn-primary {
+            background-color: var(--primary-color);
+            transition: all 0.3s ease-in-out;
+            color: var(--secondary-color);
+        }
+
+        .btn-primary:hover {
+            background-color: #3b9ba5;
+            box-shadow: 0 6px 20px rgba(85, 198, 211, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* Modal specific styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+
+        .modal-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: var(--dark-glass-bg);
+            backdrop-filter: blur(30px) saturate(200%);
+            -webkit-backdrop-filter: blur(30px) saturate(200%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 2.5rem;
+            border-radius: 2rem;
+            max-width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: scale(0.9);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .modal-overlay.open .modal-content {
+            transform: scale(1);
+        }
+
+        /* Gallery Image Hover Effect */
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.75rem; 
+        }
+
+        .gallery-item img {
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 50%);
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            z-index: 5;
+        }
+
+        .gallery-item:hover::before {
+            opacity: 1;
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 1rem;
+            left: 1rem;
+            color: white;
+            font-weight: 600;
+            font-size: 1.25rem;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+            z-index: 10;
+        }
+
+        .gallery-item:hover .gallery-caption {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Carousel Navigation for Gallery Modal */
+        .carousel-nav-btn {
+            background: rgba(0,0,0,0.5);
+            color: white;
+            padding: 10px;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .carousel-nav-btn:hover {
+            background: rgba(0,0,0,0.8);
+        }
+        .carousel-nav-btn.left { left: 1rem; }
+        .carousel-nav-btn.right { right: 1rem; }
+
+        /* Testimonial Card */
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.08); /* Lighter glass for testimonials */
+            backdrop-filter: blur(12px) saturate(170%);
+            -webkit-backdrop-filter: blur(12px) saturate(170%);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px 0 rgba(0, 0, 0, 0.45);
+        }
+
+        /* Professional input styles */
+        input[type="date"], input[type="number"], select, input[type="email"] {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            /* Using Lucide icon SVG for dropdown/select arrow */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='lucide lucide-chevron-down'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 1.5rem 1.5rem;
+            padding-right: 2.5rem; /* Make space for the icon */
+        }
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            opacity: 0; /* Hide default date picker icon */
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        /* Language selector styling */
+        .language-selector {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            /* Using Lucide icon SVG for language dropdown */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='lucide lucide-chevron-down'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 1.5rem 1.5rem;
+            padding-right: 2.5rem; /* Make space for the icon */
+        }
+    </style>
+</head>
+
+<body class="bg-gray-900 text-gray-100 min-h-screen">
+
+    <!-- Header & Navigation -->
+    <header class="fixed top-0 left-0 w-full z-50 dark-glass transition-all duration-300" aria-label="Main Navigation">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <a href="#hero" class="text-2xl font-extrabold text-white tracking-widest cursor-pointer hover:text-primary-color transition" aria-label="Azure Coast Home">GRAND AZURE COAST</a>
+            <div class="hidden md:flex space-x-8 items-center" role="menubar">
+                <a href="#about" class="text-white hover:text-cyan-300 transition duration-300" role="menuitem">About</a>
+                <a href="#rooms" class="text-white hover:text-cyan-300 transition duration-300" role="menuitem">Rooms</a>
+                <a href="#amenities" class="text-white hover:text-cyan-300 transition duration-300" role="menuitem">Amenities</a>
+                <a href="#gallery" class="text-white hover:text-cyan-300 transition duration-300" role="menuitem">Gallery</a>
+                <a href="#testimonials" class="text-white hover:text-cyan-300 transition duration-300" role="menuitem">Reviews</a>
+                <a href="#contact" class="text-white hover:text-cyan-300 transition duration-300" role="menuitem">Contact</a>
+                <select id="language-selector" class="language-selector dark-glass border border-white/20 text-white text-sm rounded-lg px-3 py-1.5 focus:ring-primary-color focus:border-primary-color" aria-label="Select Language">
+                    <option value="en">EN</option>
+                    <option value="es">ES</option>
+                    <option value="fr">FR</option>
+                </select>
+            </div>
+            <a href="#booking-form" class="hidden md:block px-6 py-2.5 rounded-full btn-primary text-secondary font-semibold shadow-lg hover:shadow-cyan-400/50" role="button">
+                Book Now
+            </a>
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-white focus:outline-none p-2 rounded-full hover:bg-white/10 transition" aria-label="Open mobile menu" aria-expanded="false">
+                <i data-lucide="menu"></i>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Mobile Menu Overlay (Off-canvas) -->
+    <div id="mobile-menu" class="fixed inset-0 z-50 bg-gray-900/95 hidden transition-opacity duration-300 md:hidden" role="dialog" aria-modal="true" aria-labelledby="mobile-menu-title">
+        <div class="flex justify-end p-4">
+            <button id="close-menu-btn" class="text-white p-2 rounded-full hover:bg-white/10 transition" aria-label="Close mobile menu">
+                <i data-lucide="x"></i>
+            </button>
+        </div>
+        <div id="mobile-menu-title" class="sr-only">Mobile Navigation Menu</div>
+        <div class="flex flex-col items-center space-y-6 text-2xl mt-10">
+            <a href="#about" class="text-white hover:text-cyan-300 transition duration-300" onclick="hideMobileMenu()">About</a>
+            <a href="#rooms" class="text-white hover:text-cyan-300 transition duration-300" onclick="hideMobileMenu()">Rooms</a>
+            <a href="#amenities" class="text-white hover:text-cyan-300 transition duration-300" onclick="hideMobileMenu()">Amenities</a>
+            <a href="#gallery" class="text-white hover:text-cyan-300 transition duration-300" onclick="hideMobileMenu()">Gallery</a>
+            <a href="#testimonials" class="text-white hover:text-cyan-300 transition duration-300" onclick="hideMobileMenu()">Reviews</a>
+            <a href="#contact" class="text-white hover:text-cyan-300 transition duration-300" onclick="hideMobileMenu()">Contact</a>
+            <select id="mobile-language-selector" class="language-selector dark-glass border border-white/20 text-white text-xl rounded-lg px-4 py-2 mt-4 focus:ring-primary-color focus:border-primary-color" aria-label="Select Language">
+                <option value="en">English</option>
+                <option value="es">Español</option>
+                <option value="fr">Français</option>
+            </select>
+            <a href="#booking-form" class="w-2/3 text-center px-4 py-3 rounded-full btn-primary text-secondary font-semibold shadow-xl mt-6" onclick="hideMobileMenu()">
+                Book Now
+            </a>
+        </div>
+    </div>
+
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col lg:flex-row items-center lg:justify-between py-24">
+            
+            <!-- Hero Text & CTA -->
+            <div class="lg:w-1/2 text-center lg:text-left mb-10 lg:mb-0 hero-content">
+                <p class="text-xl text-cyan-200 uppercase tracking-widest mb-4">Experience Coastal Luxury</p>
+                <h2 class="text-5xl md:text-7xl font-extrabold text-white leading-tight mb-6">
+                    The Azure <span class="text-primary-color">Coast</span>.
+                </h2>
+                <p class="text-lg text-gray-200 max-w-lg mx-auto lg:mx-0 mb-8">
+                    Discover unparalleled elegance and serene ocean views from our signature glass-walled suites. Your perfect escape awaits.
+                </p>
+                <div class="flex justify-center lg:justify-start space-x-4">
+                    <a href="#rooms" class="px-8 py-3 rounded-full border border-primary-color text-primary-color hover:bg-primary-color/20 transition duration-300 font-semibold" role="button">
+                        Explore Suites
+                    </a>
+                </div>
+            </div>
+
+            <!-- Booking Widget (Glassmorphism Effect) -->
+            <div id="booking-form" class="lg:w-5/12 w-full glass-container p-6 md:p-10 rounded-3xl shadow-2xl transition duration-500 hover:shadow-cyan-500/30 hero-content" style="animation-delay: 0.7s;">
+                <h3 class="text-3xl font-bold text-white mb-6 text-center">Plan Your Stay</h3>
+                <form id="booking-widget" class="space-y-4" aria-label="Room Booking Form">
+                    <div>
+                        <label for="check-in" class="block text-sm font-medium text-gray-200 mb-2">Check-in Date</label>
+                        <input type="date" id="check-in" class="w-full p-3 rounded-xl dark-glass border border-white/30 placeholder-gray-400 focus:ring-primary-color focus:border-primary-color" required aria-required="true">
+                    </div>
+                    <div>
+                        <label for="check-out" class="block text-sm font-medium text-gray-200 mb-2">Check-out Date</label>
+                        <input type="date" id="check-out" class="w-full p-3 rounded-xl dark-glass border border-white/30 placeholder-gray-400 focus:ring-primary-color focus:border-primary-color" required aria-required="true">
+                    </div>
+                    <div class="flex space-x-4">
+                        <div class="w-1/2">
+                            <label for="adults" class="block text-sm font-medium text-gray-200 mb-2">Adults</label>
+                            <select id="adults" class="w-full p-3 rounded-xl dark-glass border border-white/30 focus:ring-primary-color focus:border-primary-color" required aria-required="true">
+                                <option value="1">1</option>
+                                <option value="2" selected>2</option>
+                                <option value="3">3</option>
+                                <option value="4">4+</option>
+                            </select>
+                        </div>
+                        <div class="w-1/2">
+                            <label for="children" class="block text-sm font-medium text-gray-200 mb-2">Children</label>
+                            <select id="children" class="w-full p-3 rounded-xl dark-glass border border-white/30 focus:ring-primary-color focus:border-primary-color">
+                                <option value="0" selected>0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="w-full py-3 rounded-xl btn-primary text-secondary font-bold text-lg shadow-lg mt-6 transform hover:scale-[1.02] transition duration-300" role="button">
+                        Check Availability
+                    </button>
+                    <div id="booking-message" class="mt-4 text-center text-sm font-semibold text-green-300 hidden" role="status" aria-live="polite"></div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <main class="max-w-7xl mx-auto">
+        <!-- About Us Section (Professionalism Feature) -->
+        <section id="about" class="py-20 px-4 sm:px-6 lg:px-8 scroll-animate">
+            <div class="lg:flex lg:items-center lg:space-x-12">
+                <div class="lg:w-1/2 mb-10 lg:mb-0">
+                    <!-- Lively, professional image of the lobby/service -->
+                    <img src="https://images.unsplash.com/photo-1549294413-26f195200c3d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80" onerror="this.onerror=null;this.src='https://placehold.co/1600x1000/1e293b/ffffff?text=Professional+Lobby+View';" alt="Luxurious hotel lobby" class="rounded-3xl shadow-2xl transform hover:scale-[1.01] transition duration-500">
+                </div>
+                <div class="lg:w-1/2">
+                    <h2 class="text-4xl font-extrabold mb-4">A Sanctuary of Serenity</h2>
+                    <p class="text-xl text-gray-400 mb-6">
+                        Nestled along the pristine Azure Coast, our hotel embodies a perfect blend of modern luxury and natural beauty.
+                    </p>
+                    <p class="text-gray-300 leading-relaxed mb-6">
+                        From the moment you arrive, you'll be enveloped in an atmosphere of tranquility and refined elegance. Each detail is thoughtfully curated to provide an unforgettable experience, whether you're seeking a romantic getaway, a family vacation, or a peaceful retreat. Enjoy world-class dining, rejuvenating spa treatments, and breathtaking panoramic views that stretch across the shimmering ocean. Our commitment is to sustainable luxury and personalized, five-star service.
+                    </p>
+                    <a href="#contact" class="inline-flex items-center px-6 py-3 rounded-full btn-primary text-secondary font-semibold shadow-lg hover:shadow-cyan-400/50" role="button">
+                        <i data-lucide="handshake" class="w-5 h-5 mr-2"></i> Our Commitment
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Rooms Section -->
+        <section id="rooms" class="py-20 px-4 sm:px-6 lg:px-8 scroll-animate">
+            <h2 class="text-4xl font-extrabold text-center mb-4">Our Signature Suites</h2>
+            <p class="text-xl text-center text-gray-400 mb-12 max-w-3xl mx-auto">Experience refined comfort in our meticulously designed rooms, all featuring modern glass elements.</p>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <!-- Room Card 1: Ocean View Suite -->
+                <div class="glass-container p-6 rounded-3xl overflow-hidden hover:scale-[1.02] transition duration-500 cursor-pointer" onclick="openRoomModal('ocean-view')" tabindex="0" role="button" aria-label="View details for Ocean View Suite">
+                    <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" onerror="this.onerror=null;this.src='https://placehold.co/600x400/0e7490/ffffff?text=Ocean+View+Suite';" alt="Ocean View Suite" class="w-full h-48 object-cover rounded-2xl mb-4 shadow-lg transform hover:scale-105 transition duration-500">
+                    <h3 class="text-2xl font-bold mb-2 flex items-center"><i data-lucide="waves" class="w-6 h-6 mr-2 text-primary-color"></i> Ocean View Suite</h3>
+                    <p class="text-gray-300 text-sm mb-4">Floor-to-ceiling windows, private balcony, and smart lighting system.</p>
+                    <div class="flex justify-between items-center text-lg font-semibold">
+                        <span>$450 / night</span>
+                        <button class="px-4 py-2 rounded-full btn-primary text-secondary text-sm font-bold hover:shadow-lg" aria-label="View details" onclick="event.stopPropagation(); openRoomModal('ocean-view')">View Details</button>
+                    </div>
+                </div>
+
+                <!-- Room Card 2: Executive Penthouse -->
+                <div class="glass-container p-6 rounded-3xl overflow-hidden hover:scale-[1.02] transition duration-500 cursor-pointer" onclick="openRoomModal('executive-penthouse')" tabindex="0" role="button" aria-label="View details for Executive Penthouse">
+                    <img src="https://images.unsplash.com/photo-1590447171489-0824b42325c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" onerror="this.onerror=null;this.src='https://placehold.co/600x400/4c1d95/ffffff?text=Executive+Penthouse';" alt="Executive Penthouse" class="w-full h-48 object-cover rounded-2xl mb-4 shadow-lg transform hover:scale-105 transition duration-500">
+                    <h3 class="text-2xl font-bold mb-2 flex items-center"><i data-lucide="crown" class="w-6 h-6 mr-2 text-primary-color"></i> Executive Penthouse</h3>
+                    <p class="text-gray-300 text-sm mb-4">Two bedrooms, private butler service, and an infinity plunge pool.</p>
+                    <div class="flex justify-between items-center text-lg font-semibold">
+                        <span>$1200 / night</span>
+                        <button class="px-4 py-2 rounded-full btn-primary text-secondary text-sm font-bold hover:shadow-lg" aria-label="View details" onclick="event.stopPropagation(); openRoomModal('executive-penthouse')">View Details</button>
+                    </div>
+                </div>
+
+                <!-- Room Card 3: Garden Terrace Room -->
+                <div class="glass-container p-6 rounded-3xl overflow-hidden hover:scale-[1.02] transition duration-500 cursor-pointer" onclick="openRoomModal('garden-terrace')" tabindex="0" role="button" aria-label="View details for Garden Terrace Room">
+                    <img src="https://images.unsplash.com/photo-1544367988-75704a50059c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" onerror="this.onerror=null;this.src='https://placehold.co/600x400/059669/ffffff?text=Garden+Terrace+Room';" alt="Garden Terrace Room" class="w-full h-48 object-cover rounded-2xl mb-4 shadow-lg transform hover:scale-105 transition duration-500">
+                    <h3 class="text-2xl font-bold mb-2 flex items-center"><i data-lucide="sun" class="w-6 h-6 mr-2 text-primary-color"></i> Garden Terrace Room</h3>
+                    <p class="text-gray-300 text-sm mb-4">Ground floor access, private lush garden, and an outdoor shower.</p>
+                    <div class="flex justify-between items-center text-lg font-semibold">
+                        <span>$300 / night</span>
+                        <button class="px-4 py-2 rounded-full btn-primary text-secondary text-sm font-bold hover:shadow-lg" aria-label="View details" onclick="event.stopPropagation(); openRoomModal('garden-terrace')">View Details</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Room Detail Modal -->
+        <div id="room-modal" class="modal-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="room-modal-title">
+            <div class="modal-content relative w-full lg:w-3/5 xl:w-2/5 p-8" role="document">
+                <button class="absolute top-4 right-4 text-gray-300 hover:text-white transition p-2 rounded-full hover:bg-white/10" onclick="closeRoomModal()" aria-label="Close room details modal">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+                <div id="room-modal-content" class="space-y-6">
+                    <!-- Dynamic content will be loaded here by JavaScript -->
+                    <h3 id="room-modal-title" class="text-4xl font-extrabold text-primary-color mb-4"></h3>
+                    <img id="room-modal-image" src="" alt="Room Detail View" class="w-full h-64 object-cover rounded-2xl shadow-xl mb-4">
+                    <p id="room-modal-description" class="text-gray-300 leading-relaxed"></p>
+                    <div id="room-modal-features" class="grid grid-cols-2 gap-4 text-sm">
+                        <!-- Features list -->
+                    </div>
+                    <div class="flex justify-between items-center pt-4 border-t border-white/20">
+                        <span id="room-modal-price" class="text-2xl font-bold text-white"></span>
+                        <a href="#booking-form" onclick="closeRoomModal()" class="px-6 py-2 rounded-full btn-primary text-secondary font-bold hover:shadow-lg transition">
+                            Reserve This Suite
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Amenities Section -->
+        <section id="amenities" class="py-20 px-4 sm:px-6 lg:px-8 scroll-animate">
+            <h2 class="text-4xl font-extrabold text-center mb-4">World-Class Amenities</h2>
+            <p class="text-xl text-center text-gray-400 mb-12 max-w-3xl mx-auto">Enhance your stay with our bespoke services and stunning facilities.</p>
+            
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Amenity Card 1: Infinity Pool -->
+                <div class="glass-container p-6 rounded-2xl text-center flex flex-col items-center hover:bg-white/20 transition duration-300 transform hover:scale-[1.02]">
+                    <i data-lucide="swimming-pool" class="w-12 h-12 text-primary-color mb-3 animate-pulse"></i>
+                    <h3 class="text-xl font-bold mb-2">Infinity Pool</h3>
+                    <p class="text-gray-300 text-sm">Ocean-view infinity pool with personalized towel service.</p>
+                </div>
+
+                <!-- Amenity Card 2: Fine Dining -->
+                <div class="glass-container p-6 rounded-2xl text-center flex flex-col items-center hover:bg-white/20 transition duration-300 transform hover:scale-[1.02]">
+                    <i data-lucide="utensils" class="w-12 h-12 text-primary-color mb-3 animate-pulse delay-100"></i>
+                    <h3 class="text-xl font-bold mb-2">Fine Dining</h3>
+                    <p class="text-gray-300 text-sm">Michelin-star chef featuring farm-to-table cuisine.</p>
+                </div>
+
+                <!-- Amenity Card 3: Wellness Spa -->
+                <div class="glass-container p-6 rounded-2xl text-center flex flex-col items-center hover:bg-white/20 transition duration-300 transform hover:scale-[1.02]">
+                    <i data-lucide="flower" class="w-12 h-12 text-primary-color mb-3 animate-pulse delay-200"></i>
+                    <h3 class="text-xl font-bold mb-2">Wellness Spa</h3>
+                    <p class="text-gray-300 text-sm">Holistic treatments and ocean-side massage therapy.</p>
+                </div>
+
+                <!-- Amenity Card 4: Executive Lounge -->
+                <div class="glass-container p-6 rounded-2xl text-center flex flex-col items-center hover:bg-white/20 transition duration-300 transform hover:scale-[1.02]">
+                    <i data-lucide="coffee" class="w-12 h-12 text-primary-color mb-3 animate-pulse delay-300"></i>
+                    <h3 class="text-xl font-bold mb-2">Executive Lounge</h3>
+                    <p class="text-gray-300 text-sm">24/7 access with bespoke cocktail and canapé service.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Gallery Section -->
+        <section id="gallery" class="py-20 px-4 sm:px-6 lg:px-8 scroll-animate">
+            <h2 class="text-4xl font-extrabold text-center mb-12">Photo Gallery</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="gallery-item cursor-pointer" onclick="openGalleryModal(0)" tabindex="0" role="button" aria-label="View hotel dining photo">
+                    <img src="https://images.unsplash.com/photo-1579705703940-27c585c5c994?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80" onerror="this.onerror=null;this.src='https://placehold.co/400x300/16a34a/ffffff?text=Dining';" data-title="The Azure Dining Room" class="w-full h-full object-cover rounded-xl shadow-lg transition duration-500" alt="Hotel Interior">
+                    <span class="gallery-caption">Dining Room</span>
+                </div>
+                <div class="gallery-item cursor-pointer" onclick="openGalleryModal(1)" tabindex="0" role="button" aria-label="View hotel exterior photo">
+                    <img src="https://images.unsplash.com/photo-1540541338287-c1d1a60395c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80" onerror="this.onerror=null;this.src='https://placehold.co/400x300/3b82f6/ffffff?text=Exterior';" data-title="Coastal Exterior" class="w-full h-full object-cover rounded-xl shadow-lg transition duration-500" alt="Hotel Exterior">
+                    <span class="gallery-caption">Exterior View</span>
+                </div>
+                <div class="gallery-item cursor-pointer" onclick="openGalleryModal(2)" tabindex="0" role="button" aria-label="View hotel spa photo">
+                    <img src="https://images.unsplash.com/photo-1616394584738-6be89e31974e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80" onerror="this.onerror=null;this.src='https://placehold.co/400x300/f97316/ffffff?text=Spa';" data-title="Serenity Spa" class="w-full h-full object-cover rounded-xl shadow-lg transition duration-500" alt="Hotel Restaurant">
+                    <span class="gallery-caption">Wellness Spa</span>
+                </div>
+                <div class="gallery-item cursor-pointer" onclick="openGalleryModal(3)" tabindex="0" role="button" aria-label="View hotel pool photo">
+                    <img src="https://images.unsplash.com/photo-1595152772835-219677b25595?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80" onerror="this.onerror=null;this.src='https://placehold.co/400x300/8b5cf6/ffffff?text=Pool';" data-title="Infinity Pool" class="w-full h-full object-cover rounded-xl shadow-lg transition duration-500" alt="Hotel View">
+                    <span class="gallery-caption">Infinity Pool</span>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Gallery Modal -->
+        <div id="gallery-modal" class="modal-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="gallery-modal-title">
+            <div class="modal-content relative w-full lg:w-4/5 xl:w-3/5 p-4" role="document" style="padding: 1rem;">
+                <button class="absolute top-4 right-4 text-gray-300 hover:text-white transition p-2 rounded-full hover:bg-white/30 z-20" onclick="closeGalleryModal()" aria-label="Close gallery modal">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+                <div class="relative w-full aspect-video">
+                    <img id="gallery-modal-image" src="" alt="Gallery View" class="w-full h-full object-contain rounded-xl">
+                    <button class="carousel-nav-btn left" onclick="navigateGallery(-1)" aria-label="Previous image">
+                        <i data-lucide="chevron-left" class="w-6 h-6"></i>
+                    </button>
+                    <button class="carousel-nav-btn right" onclick="navigateGallery(1)" aria-label="Next image">
+                        <i data-lucide="chevron-right" class="w-6 h-6"></i>
+                    </button>
+                    <div id="gallery-modal-title" class="absolute bottom-4 left-1/2 -translate-x-1/2 dark-glass px-4 py-2 rounded-full text-lg font-semibold"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Testimonials Section (Professionalism Feature) -->
+        <section id="testimonials" class="py-20 px-4 sm:px-6 lg:px-8 scroll-animate">
+            <h2 class="text-4xl font-extrabold text-center mb-4">Guest Testimonials</h2>
+            <p class="text-xl text-center text-gray-400 mb-12 max-w-3xl mx-auto">Hear what our distinguished guests have to say about their experience.</p>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card p-6 rounded-2xl">
+                    <div class="flex text-yellow-400 mb-3">
+                        <i data-lucide="star" class="w-5 h-5 fill-yellow-400"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-yellow-400"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-yellow-400"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-yellow-400"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-yellow-400"></i>
+                    </div>
+                    <p class="text-gray-200 italic mb-4">"The service was impeccable. Every member of staff went above and beyond to ensure our stay was perfect. The Ocean View Suite is breathtaking."</p>
+                    <div class="flex items-center">
+                        <img src="https://placehold.co/40x40/55c6d3/ffffff?text=JD" alt="Guest Avatar" class="w-10 h-10 rounded-full mr-3">
+                        <div>
+                            <p class="font-bold text-white">James D.</p>
+                            <p class="text-xs text-gray-400">Luxury Traveler</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card p-6 rounded-2xl">
+                    <div class="flex text-yellow-400 mb-3">
+                        <i data-lucide="star" class="w-5 h-5 fill-yellow-400"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-yellow-400"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-yellow-400"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-yellow-400"></i>
+                        <i data-lucide="star-half" class="w-5 h-5 fill-yellow-400"></i>
+                    </div>
+                    <p class="text-gray-200 italic mb-4">"Absolutely stunning architecture and ambiance. The glass design gives you a feeling of floating over the sea. Highly recommend the spa."</p>
+                    <div class="flex items-center">
+                        <img src="https://placehold.co/40x40/f97316/ffffff?text=MG" alt="Guest Avatar" class="w-10 h-10 rounded-full mr-3">
+                        <div>
+                            <p class="font-bold text-white">Maria G.</p>
+                            <p class="text-xs text-gray-400">Honeymoon Couple</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card p-6 rounded-2xl">
+                    <div class="flex text-yellow-400 mb-3">
+                        <i data-lucide="star" class="w-5 h-5 fill-yellow-400"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-yellow-400"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-yellow-400"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-yellow-400"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-yellow-400"></i>
+                    </div>
+                    <p class="text-gray-200 italic mb-4">"The Executive Penthouse provided the best vacation of our lives. Pure luxury, perfect privacy, and outstanding concierge service."</p>
+                    <div class="flex items-center">
+                        <img src="https://placehold.co/40x40/3b82f6/ffffff?text=RS" alt="Guest Avatar" class="w-10 h-10 rounded-full mr-3">
+                        <div>
+                            <p class="font-bold text-white">Robert S.</p>
+                            <p class="text-xs text-gray-400">Business Executive</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Booking Confirmation Modal -->
+    <div id="confirmation-modal" class="modal-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="confirmation-modal-title">
+        <div class="modal-content relative w-full max-w-md text-center p-8">
+            <h3 id="confirmation-modal-title" class="text-4xl font-extrabold text-primary-color mb-4 flex items-center justify-center">
+                <i data-lucide="check-circle" class="w-8 h-8 mr-3 text-green-400"></i> Booking Confirmed!
+            </h3>
+            <p id="confirmation-text" class="text-gray-300 mb-6 leading-relaxed">
+                Your reservation request has been successfully submitted. We will contact you within 24 hours to finalize your stay details.
+            </p>
+            <div class="glass-container p-4 rounded-xl text-left mb-6">
+                <p class="text-sm font-semibold mb-1">Confirmation Details:</p>
+                <p id="conf-dates" class="text-gray-300"></p>
+                <p id="conf-guests" class="text-gray-300"></p>
+            </div>
+            <button class="w-full py-3 rounded-xl btn-primary text-secondary font-bold hover:shadow-lg transition" onclick="closeConfirmationModal()">
+                Done
+            </button>
+        </div>
+    </div>
+
+
+    <!-- Footer -->
+    <footer id="contact" class="dark-glass py-12 mt-12 border-t border-white/10 scroll-animate">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-5 gap-8 text-sm">
+            
+            <!-- Logo & Social -->
+            <div class="col-span-2 md:col-span-1">
+                <h3 class="text-xl font-extrabold text-white mb-4">AZURE COAST</h3>
+                <p class="text-gray-400 mb-4">123 Ocean Blvd, Paradise City, 90210</p>
+                <div class="flex space-x-3">
+                    <a href="https://www.instagram.com/?hl=en" class="text-gray-400 hover:text-primary-color transition" aria-label="Instagram"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-primary-color transition" aria-label="Whatsapp"><i class="fa-brands fa-whatsapp"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-primary-color transition" aria-label="Twitter"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div>
+                <h4 class="font-semibold text-white mb-4">Quick Links</h4>
+                <ul class="space-y-2">
+                    <li><a href="#about" class="text-gray-400 hover:text-white transition">About Us</a></li>
+                    <li><a href="#rooms" class="text-gray-400 hover:text-white transition">Rooms & Suites</a></li>
+                    <li><a href="#amenities" class="text-gray-400 hover:text-white transition">Hotel Amenities</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">FAQ</a></li>
+                </ul>
+            </div>
+
+            <!-- Professionalism: Corporate -->
+            <div>
+                <h4 class="font-semibold text-white mb-4">Corporate</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">Press Center</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">Careers</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">Investor Relations</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">Terms & Privacy</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact -->
+            <div>
+                <h4 class="font-semibold text-white mb-4">Reservations</h4>
+                <ul class="space-y-2">
+                    <li><a href="tel:+1234567890" class="text-gray-400 hover:text-white transition flex items-center"><i data-lucide="phone" class="w-4 h-4 mr-2"></i>(+254) 798-755-960</a></li>
+                    <li><a href="mailto:book@azurecoast.com" class="text-gray-400 hover:text-white transition flex items-center"><i data-lucide="mail" class="w-4 h-4 mr-2"></i>azurecoasthotel@gmail.com</a></li>
+                    <li><p class="text-gray-400 mt-2">Open 24/7</p></li>
+                </ul>
+            </div>
+
+             <!-- Newsletter -->
+            <div class="col-span-2 md:col-span-1">
+                <h4 class="font-semibold text-white mb-4">Newsletter</h4>
+                <p class="text-gray-400 mb-3">Get the latest offers and news.</p>
+                <form onsubmit="handleNewsletter(event)">
+                    <input type="email" placeholder="Your Email" class="w-full p-2 rounded-lg bg-gray-700/50 border border-gray-600 focus:ring-primary-color focus:border-primary-color text-white placeholder-gray-400" required aria-label="Email for newsletter subscription">
+                    <button type="submit" class="w-full mt-3 py-2 rounded-lg btn-primary text-secondary font-semibold text-sm">Subscribe</button>
+                    <div id="newsletter-message" class="mt-2 text-xs font-semibold text-green-300 hidden" role="status" aria-live="polite"></div>
+                </form>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10 pt-6 border-t border-white/10 text-center text-gray-500">
+            &copy; 2025 The Azure Coast Hotel. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // --- ROOM DATA (for Modals) ---
+        const ROOM_DETAILS = {
+            'ocean-view': {
+                title: 'Ocean View Suite',
+                price: '$450 / night',
+                image: 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                description: 'Our most popular suite offers breathtaking panoramic views of the ocean. The minimalist design emphasizes natural light and the serene coastal setting.',
+                features: [
+                    { icon: 'maximize-2', text: '550 sq ft' },
+                    { icon: 'bed', text: 'King Size Bed' },
+                    { icon: 'bathtub', text: 'Soaking Tub & Rain Shower' },
+                    { icon: 'projector', text: 'Smart Lighting' }
+                ]
+            },
+            'executive-penthouse': {
+                title: 'Executive Penthouse',
+                price: '$1200 / night',
+                image: 'https://images.unsplash.com/photo-1590447171489-0824b42325c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                description: 'The epitome of luxury. This exclusive two-story penthouse features two bedrooms, a private terrace, and dedicated butler service.',
+                features: [
+                    { icon: 'maximize-2', text: '2,500 sq ft' },
+                    { icon: 'crown', text: 'Private Butler' },
+                    { icon: 'pool', text: 'Infinity Plunge Pool' },
+                    { icon: 'bar-chart-2', text: 'Executive Office Space' }
+                ]
+            },
+            'garden-terrace': {
+                title: 'Garden Terrace Room',
+                price: '$300 / night',
+                image: 'https://images.unsplash.com/photo-1544367988-75704a50059c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                description: 'Perfect for nature lovers, this ground-floor room offers direct access to a lush private garden and features a soothing outdoor rain shower.',
+                features: [
+                    { icon: 'maximize-2', text: '400 sq ft' },
+                    { icon: 'leaf', text: 'Private Garden Access' },
+                    { icon: 'shower-head', text: 'Outdoor Rain Shower' },
+                    { icon: 'coffee', text: 'Daily Breakfast Included' }
+                ]
+            }
+        };
+
+        // --- GALLERY DATA ---
+        const GALLERY_IMAGES = [
+            { src: 'https://images.unsplash.com/photo-1579705703940-27c585c5c994?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80', title: 'The Azure Dining Room' },
+            { src: 'https://images.unsplash.com/photo-1540541338287-c1d1a60395c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80', title: 'Coastal Exterior' },
+            { src: 'https://images.unsplash.com/photo-1616394584738-6be89e31974e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80', title: 'Serenity Spa' },
+            { src: 'https://images.unsplash.com/photo-1595152772835-219677b25595?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80', title: 'Infinity Pool' }
+        ];
+        let currentGalleryIndex = 0;
+
+
+        // --- UTILITY FUNCTIONS FOR MODALS ---
+
+        function showModal(id) {
+            const modal = document.getElementById(id);
+            if (modal) {
+                modal.classList.add('open');
+                modal.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            }
+        }
+
+        function hideModal(id) {
+            const modal = document.getElementById(id);
+            if (modal) {
+                modal.classList.remove('open');
+                modal.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = '';
+            }
+        }
+
+        // --- ROOM MODAL ---
+
+        function openRoomModal(roomId) {
+            const room = ROOM_DETAILS[roomId];
+            if (!room) return;
+
+            document.getElementById('room-modal-title').textContent = room.title;
+            document.getElementById('room-modal-image').src = room.image;
+            document.getElementById('room-modal-description').textContent = room.description;
+            document.getElementById('room-modal-price').textContent = room.price;
+
+            const featuresEl = document.getElementById('room-modal-features');
+            featuresEl.innerHTML = room.features.map(f => `
+                <div class="flex items-center text-primary-color font-medium">
+                    <i data-lucide="${f.icon}" class="w-5 h-5 mr-2"></i>
+                    <span class="text-gray-200">${f.text}</span>
+                </div>
+            `).join('');
+
+            // Re-create icons for dynamic content
+            lucide.createIcons();
+            showModal('room-modal');
+        }
+
+        function closeRoomModal() {
+            hideModal('room-modal');
+        }
+
+        // --- GALLERY MODAL ---
+
+        function updateGalleryModal(index) {
+            currentGalleryIndex = (index + GALLERY_IMAGES.length) % GALLERY_IMAGES.length;
+            const image = GALLERY_IMAGES[currentGalleryIndex];
+            document.getElementById('gallery-modal-image').src = image.src;
+            document.getElementById('gallery-modal-title').textContent = image.title;
+        }
+
+        function openGalleryModal(index) {
+            updateGalleryModal(index);
+            showModal('gallery-modal');
+        }
+
+        function navigateGallery(direction) {
+            updateGalleryModal(currentGalleryIndex + direction);
+        }
+
+        function closeGalleryModal() {
+            hideModal('gallery-modal');
+        }
+        
+        // --- BOOKING CONFIRMATION MODAL ---
+
+        function openConfirmationModal(dates, guests) {
+            document.getElementById('conf-dates').textContent = `Dates: ${dates}`;
+            document.getElementById('conf-guests').textContent = `Guests: ${guests}`;
+            showModal('confirmation-modal');
+            lucide.createIcons();
+        }
+
+        function closeConfirmationModal() {
+            hideModal('confirmation-modal');
+        }
+
+        // --- MOBILE MENU ---
+
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const closeMenuBtn = document.getElementById('close-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.remove('hidden');
+            mobileMenuBtn.setAttribute('aria-expanded', 'true');
+            document.body.style.overflow = 'hidden';
+        });
+
+        closeMenuBtn.addEventListener('click', hideMobileMenu);
+
+        function hideMobileMenu() {
+            mobileMenu.classList.add('hidden');
+            mobileMenuBtn.setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = '';
+        }
+
+        // --- FORM SUBMISSIONS ---
+
+        // 1. Booking Form Submission
+        document.getElementById('booking-widget').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const checkIn = document.getElementById('check-in').value;
+            const checkOut = document.getElementById('check-out').value;
+            const adults = document.getElementById('adults').value;
+            const children = document.getElementById('children').value;
+            const messageEl = document.getElementById('booking-message');
+
+            if (!checkIn || !checkOut) {
+                messageEl.textContent = "Please select both check-in and check-out dates.";
+                messageEl.classList.remove('hidden', 'text-green-300');
+                messageEl.classList.add('text-red-400');
+                setTimeout(() => messageEl.classList.add('hidden'), 3000);
+                return;
+            }
+            
+            // Clear inputs for professionalism
+            document.getElementById('check-in').value = '';
+            document.getElementById('check-out').value = '';
+
+            // Show confirmation modal instead of simple message
+            const dates = `${checkIn} to ${checkOut}`;
+            const guests = `${adults} Adults, ${children} Children`;
+            openConfirmationModal(dates, guests);
+
+            // Temporarily show message in widget (will be covered by modal instantly)
+            messageEl.textContent = `Processing request for ${adults} guests...`;
+            messageEl.classList.remove('hidden', 'text-red-400');
+            messageEl.classList.add('text-green-300');
+            setTimeout(() => messageEl.classList.add('hidden'), 500);
+        });
+
+        // 2. Newsletter Submission
+        function handleNewsletter(e) {
+            e.preventDefault();
+            const emailInput = e.target.querySelector('input[type="email"]');
+            const messageEl = document.getElementById('newsletter-message');
+
+            messageEl.textContent = `Thank you for subscribing, ${emailInput.value}! We promise to only send luxury updates.`;
+            messageEl.classList.remove('hidden');
+            emailInput.value = ''; // Clear input
+            
+            setTimeout(() => messageEl.classList.add('hidden'), 4000);
+        }
+
+        // --- SCROLL ANIMATION LOGIC ---
+
+        const elementsToAnimate = document.querySelectorAll('.scroll-animate');
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            root: null, 
+            rootMargin: '0px',
+            threshold: 0.1 
+        });
+
+        elementsToAnimate.forEach(el => {
+            observer.observe(el);
+        });
+
+        // 5. Sticky Header Visibility Toggle on Scroll
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.classList.add('border-b', 'border-white/20');
+            } else {
+                header.classList.remove('border-b', 'border-white/20');
+            }
+        });
+
+        // Handle Escape Key for Modals
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                if (document.getElementById('room-modal').classList.contains('open')) {
+                    closeRoomModal();
+                }
+                if (document.getElementById('gallery-modal').classList.contains('open')) {
+                    closeGalleryModal();
+                }
+                if (document.getElementById('confirmation-modal').classList.contains('open')) {
+                    closeConfirmationModal();
+                }
+            }
+        });
+
+    // Backend API integration
+const API_BASE = 'http://localhost:3000/api'; // Change to your backend URL
+
+// Update booking form handler
+document.getElementById('booking-widget').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const formData = {
+        checkIn: document.getElementById('check-in').value,
+        checkOut: document.getElementById('check-out').value,
+        adults: document.getElementById('adults').value,
+        children: document.getElementById('children').value,
+        roomType: 'ocean-view' // You can make this dynamic based on user selection
+    };
+
+    try {
+        const response = await fetch(`${API_BASE}/bookings`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        });
+
+        const result = await response.json();
+        
+        const messageEl = document.getElementById('booking-message');
+        if (result.success) {
+            messageEl.textContent = result.message;
+            messageEl.className = 'mt-4 text-center text-sm font-semibold text-green-300';
+            messageEl.classList.remove('hidden');
+            
+            // Reset form
+            document.getElementById('booking-widget').reset();
+        } else {
+            messageEl.textContent = result.error || 'Booking failed. Please try again.';
+            messageEl.className = 'mt-4 text-center text-sm font-semibold text-red-300';
+            messageEl.classList.remove('hidden');
+        }
+    } catch (error) {
+        console.error('Booking error:', error);
+        const messageEl = document.getElementById('booking-message');
+        messageEl.textContent = 'Network error. Please try again.';
+        messageEl.className = 'mt-4 text-center text-sm font-semibold text-red-300';
+        messageEl.classList.remove('hidden');
+    }
+});
+
+// Function to check room availability
+async function checkRoomAvailability(roomType, checkIn, checkOut) {
+    try {
+        const response = await fetch(
+            `${API_BASE}/availability?roomType=${roomType}&checkIn=${checkIn}&checkOut=${checkOut}`
+        );
+        return await response.json();
+    } catch (error) {
+        console.error('Availability check error:', error);
+        return { available: false };
+    }
+}
+
+    </script>
+</body>
+</html>
